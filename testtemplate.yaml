@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: creating the ec2-instance in default details provoded by aws
+
+Parameters:
+  Imageid:
+    Type: String
+    Description: Select the AMI for ec2 instances
+    AllowedValues:
+      - ami-0d13e3e640877b0b9 #this is the amazon linux image
+      - ami-0f5ee92e2d63afc18 #this is the ubuntu linux image
+  InstanceType:
+    Type: String
+    Description: Select the instance type for the EC2 instance
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - t3.nano
+      - m5.large
+      - m5d.xlarge
+      - c5.large
+      - c5n.xlarge
+      - c6g.medium
+      - c6gn.xlarge
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: Select the key pair for SSH access to the EC2 instance
+Resources:
+  server1:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref Imageid
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref KeyName

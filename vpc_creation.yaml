@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Creating the VPC for testing
+
+Parameters:
+  VpcCidrBlock:
+    Type: String
+    Description: CIDR block for the VPC
+
+Resources:
+  TestVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VpcCidrBlock
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value: TestVPC
+        - Key: Environment
+          Value: test
+
+Outputs:
+  VpcId:
+    Value: !Ref TestVPC
+    Description: ID of the created VPC
+  VpcCidrBlock:
+    Value: !GetAtt TestVPC.CidrBlock
+    Description: CIDR block of the created VPC
